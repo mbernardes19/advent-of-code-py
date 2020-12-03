@@ -36,23 +36,12 @@ def check_password_validity_p1(rule: Dict, password: str):
 
 
 def check_password_validity_p2(rule: Dict, password: str):
-    isValid = False
-    if password[rule['min']-1] == rule['char']:
-        isValid = True
-        if password[rule['max']-1] == rule['char']:
-            isValid = False
-        else:
-            isValid: True
-    elif password[rule['max']-1] == rule['char']:
-        isValid = True
-        if password[rule['min']-1] == rule['char']:
-            isValid = False
-        else:
-            isValid = True
+    if password[rule['min']-1] == rule['char'] and password[rule['max']-1] != rule['char']:
+        return True
+    elif password[rule['min']-1] != rule['char'] and password[rule['max']-1] == rule['char']:
+        return True
     else:
-        isValid = False
-
-    return isValid
+        return False
 
 
 count_p1 = 0
@@ -66,5 +55,5 @@ for entry in entries:
     if check_password_validity_p2(rule, passw):
         count_p2 += 1
 
-print(count_p1)
-print(count_p2)
+print('Part 1:', count_p1)
+print('Part 2:', count_p2)
